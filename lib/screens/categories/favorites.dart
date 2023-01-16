@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import './../../models/meal.dart';
 
 class Favorites extends StatelessWidget {
-  const Favorites({super.key});
+  final List<Meal> favoriteMeals;
+
+  const Favorites(this.favoriteMeals, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('The Favorites'),
+      child: Text('You have no favorites yet - start adding some!'),
     );
   }
 }

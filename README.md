@@ -31,3 +31,6 @@ samples, guidance on mobile development, and a full API reference.
 -   subtitle => subtitle2
 -   body2    => bodyText1
 -   body     => bodyText2
+
+### links
+-   https://dart.dev/null-safety/understanding-null-safety

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import './meal_item.dart';
-import './../../dummy_data.dart';
+// import './../../dummy_data.dart';
 import './../../models/meal.dart';
 
 class CategoryMeals extends StatefulWidget {
   static const String routeName = '/categories-meals';
+
+  final List<Meal> _availableMeals;
+
+  const CategoryMeals(this._availableMeals, {super.key});
 
 // Commented to use named routes and passing data instead of constructor
 
@@ -38,8 +42,16 @@ class _CategoryMealsState extends State<CategoryMeals> {
       categoryTitle = routeArgs['title']!;
       final categoryId = routeArgs['id'];
 
+      // we use widget._availableMeals, which comes from main.dart
+      // instead DUMMY_MEALS directly
       // filter category meals based on category id selected
-      displayedMeals = DUMMY_MEALS.where(
+      // displayedMeals = DUMMY_MEALS.where(
+      //   (meal) {
+      //     return meal.categories.contains(categoryId);
+      //   },
+      // ).toList();
+
+      displayedMeals = widget._availableMeals.where(
         (meal) {
           return meal.categories.contains(categoryId);
         },
