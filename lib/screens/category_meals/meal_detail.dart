@@ -4,7 +4,10 @@ import './../../dummy_data.dart';
 class MealDetail extends StatelessWidget {
   static const String routeName = '/meal-detail';
 
-  const MealDetail({super.key});
+  final Function toggleFavorite;
+  final Function isFavorite;
+
+  const MealDetail(this.toggleFavorite, this.isFavorite, {super.key});
 
   // created common widget as it will used multiple places in this page
   Widget buildSectionTitle(BuildContext context, String text) {
@@ -89,12 +92,15 @@ class MealDetail extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.delete),
-        onPressed: () {
-          // this will open meal_item page, where mealId get as result
-          // of Future completed in selectMeal function
-          Navigator.of(context).pop(mealId);
-        },
+        child: Icon(
+          isFavorite(mealId) ? Icons.star : Icons.star_border,
+        ),
+        onPressed: () => toggleFavorite(mealId),
+        // onPressed: () {
+        //   // this will open meal_item page, where mealId get as result
+        //   // of Future completed in selectMeal function
+        //   Navigator.of(context).pop(mealId);
+        // },
       ),
     );
   }

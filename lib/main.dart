@@ -29,9 +29,9 @@ class _MyAppState extends State<MyApp> {
 
   List<Meal> _availableMeals = DUMMY_MEALS;
 
-  // favorites screen is not part of route registration, but part of Tabs Screen, so pass 
+  // favorites screen is not part of route registration, but part of Tabs Screen, so pass
   // _faviorateMeals to Tabs Screen
-  List<Meal> _faviorateMeals = []; 
+  List<Meal> _faviorateMeals = [];
 
   // This method gets called from inside Filters.dart screen
   void _setFilters(Map<String, bool> filterData) {
@@ -53,10 +53,29 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  // this is not good approach, bcaz toogle will call build method causes entire app to rebuild
   void _toggleFavorite(String mealId) {
+    //_faviorateMeals
+    final existingIndex =
+        _faviorateMeals.indexWhere((meal) => meal.id == mealId);
 
+    if (existingIndex >= 0) {
+      // item found in _faviorateMeals so remove it
+      setState(() {
+        _faviorateMeals.removeAt(existingIndex);
+      });
+    } else {
+      setState(() {
+        _faviorateMeals
+            .add(DUMMY_MEALS.firstWhere((meal) => meal.id == mealId));
+      });
+    }
   }
-  
+
+  bool _isMealFavorite(String id) {
+    return _faviorateMeals.any((meal) => meal.id == id);
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -99,7 +118,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/': (context) => TabsAtBottom(_faviorateMeals), //const Tabs(),
         CategoryMeals.routeName: (context) => CategoryMeals(_availableMeals),
-        MealDetail.routeName: (context) => MealDetail(),
+        MealDetail.routeName: (context) => MealDetail(_toggleFavorite, _isMealFavorite),
         Filters.routeName: (context) => Filters(_filters, _setFilters)
       },
       // onGenerateRoute: (settings) {
