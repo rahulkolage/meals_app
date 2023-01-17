@@ -9,6 +9,8 @@ class CategoryItem extends StatelessWidget {
   const CategoryItem(this.id, this.title, this.color, {super.key});
 
   void selectCategory(BuildContext ctx) {
+
+    // named route. sending data via arguments key
     Navigator.of(ctx).pushNamed(
       CategoryMeals.routeName,arguments: {'id': id, 'title': title},
     );
@@ -17,6 +19,7 @@ class CategoryItem extends StatelessWidget {
     //   '/categories-meals',arguments: {'id': id, 'title': title},
     // );
 
+    // non-named route. sending data directly as arguments to constructor
     // Navigator.of(ctx).push(
     //   MaterialPageRoute(
     //     builder: (_) {
